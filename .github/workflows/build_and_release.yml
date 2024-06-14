@@ -1,19 +1,13 @@
 
 name: Build Release
 
-on:
-  push:
-    tags:
-      - "v*"
-  pull_request:
-    branches:
-      - "*"
+on: [workflow_dispatch]
 
 jobs:
   upload-release:
     if: ${{ github.event_name != 'pull_request' }}
     runs-on: ubuntu-20.04
-    needs: [build-mac, build-mac-arm, build-linux, build-windows, build-linux-portable, build-windows-portable]
+    needs: [build-linux]
 
     steps:
     - uses: actions/checkout@v1
